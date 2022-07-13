@@ -1,3 +1,4 @@
+// { Driver Code Starts
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -8,28 +9,49 @@ class Solution {
     vector<int> bfsOfGraph(int V, vector<int> adj[]) {
         // Code here
         
-        vector<bool> visited(V,0);
-        vector<int> res;
+        vector<int> vis(V,0), ans;
         queue<int> q;
         q.push(0);
         
-        while(!q.empty())
-        {
-            int t = q.front();
-            q.pop();
-            
-            if(visited[t] == false)
-            {
-                res.push_back(t);
-                visited[t] = true;
-                for(auto it:adj[t])
-                    q.push(it);
-            }
+        // Conceptually wrong approach.
+        
+            // while(!q.empty())
+            // {
+            //     int t = q.front();
+            //     q.pop();
                 
-        }
+            //     if(visited[t] == false)
+            //     {
+            //         ans.push_back(t);
+            //         visited[t] = true;
+            //         for(auto it:adj[t])
+            //             q.push(it);
+            //     }
+                    
+            // }
+            
         
-        return res;
-        
+        // Right approach.
+            vis[0] = 1;
+            ans.push_back(0);
+            
+            while(!q.empty())
+            {
+                int front = q.front();
+                q.pop();
+                
+                for(int i=0;i<adj[front].size();i++)
+                {
+                    if(vis[adj[front][i]] == 0)
+                    {
+                        vis[adj[front][i]] = 1;
+                        ans.push_back(adj[front][i]);
+                        q.push(adj[front][i]);
+                    }
+                }
+            }
+            
+        return ans;
     }
 };
 
