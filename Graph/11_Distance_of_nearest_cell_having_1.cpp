@@ -1,14 +1,13 @@
 #include<bits/stdc++.h>
 using namespace std;
 
- // } Driver Code Ends
+
+
 class Solution 
 {
     public:
-    //Function to find distance of nearest 1 in the grid for each cell.
 	vector<vector<int>>nearest(vector<vector<int>>grid)
 	{
-	    // Code here
 	    int row = grid.size();
 	    int col = grid[0].size();
 	    
@@ -76,7 +75,6 @@ class Solution
 	}
 };
 
-// { Driver Code Starts.
 int main(){
 	int tc;
 	cin >> tc;
@@ -99,4 +97,4 @@ int main(){
 		}
 	}
 	return 0;
-}  // } Driver Code Ends
+
