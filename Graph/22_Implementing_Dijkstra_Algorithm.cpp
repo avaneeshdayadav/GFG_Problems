@@ -14,14 +14,14 @@ class Solution
         priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> minHeap;
         
         // Dist array to store min distance to reach every node.
-        vector<int> dist(V,INT_MAX);
+        vector<int> dist(V,INT_MAX),vis(V,0);
         dist[S] = 0;
         
         // Source Node dist from source node is 0.
         minHeap.push({0,S});
         
         
-        // No visited array. Just keep looping till minHeap is not empty.
+        // We can do this without visited array also. Just keep looping till minHeap is not empty.
         while(!minHeap.empty())
         {
             pair<int,int> top = minHeap.top();
@@ -32,16 +32,20 @@ class Solution
             // Look on all the adj's nodes of this poped node.
             for(auto it : adj[nodeName])
             {
-                int adjNodeName = it[0];
-                int adjNodeWt = it[1];
-                
-                // Push in Heap only if the minDist of a adj node is getting updated. So all adj nodes from this adj node can be evaluated again.
-                if(weight + adjNodeWt < dist[adjNodeName])
+                if(!vis[it[0]])
                 {
-                    dist[adjNodeName] = weight + adjNodeWt;
-                    minHeap.push({dist[adjNodeName],adjNodeName});
+                    int adjNodeName = it[0];
+                    int adjNodeWt = it[1];
+                    
+                    // Push in Heap only if the minDist of a adj node is getting updated. So all adj nodes from this adj node can be evaluated again.
+                    if(weight + adjNodeWt < dist[adjNodeName])
+                    {
+                        dist[adjNodeName] = weight + adjNodeWt;
+                        minHeap.push({dist[adjNodeName],adjNodeName});
+                    }
                 }
             }
+            vis[nodeName] = 1;
         }
         
         return dist;
